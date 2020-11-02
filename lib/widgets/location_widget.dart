@@ -47,13 +47,15 @@ class _LocationWidgetState extends State<LocationWidget> {
   }
 
   void localize() {
-    Geolocator.getPositionStream().listen((Position position) {
-      setState(() {
-        _lastLocation = _userLocation;
-        _userLocation = position;
+    try {
+      Geolocator.getPositionStream().listen((Position position) {
+        setState(() {
+          _lastLocation = _userLocation;
+          _userLocation = position;
+        });
+        calculateDistance();
       });
-      calculateDistance();
-    });
+    } catch (e) {}
   }
 
   void _startTimer() {
