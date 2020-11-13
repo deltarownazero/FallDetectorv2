@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatefulWidget {
   final GestureTapCallback onPressed;
-  final String toast;
-  const PrimaryButton({Key key, this.onPressed, this.toast}) : super(key: key);
+  final String text;
+  const PrimaryButton({Key key, this.onPressed, this.text}) : super(key: key);
 
   @override
   _PrimaryButtonState createState() => _PrimaryButtonState();
@@ -22,11 +22,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       child: BouncingWidget(
         duration: Duration(milliseconds: 100),
         scaleFactor: 1.5,
-        onPressed: () {
-          if (widget.toast != null) {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text(widget.toast)));
-          }
-        },
+        onPressed: widget.onPressed,
         child: Container(
           height: 48,
           decoration: BoxDecoration(
@@ -35,7 +31,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           ),
           child: Center(
             child: Text(
-              AppConstants.reportFall,
+              widget.text,
               style: TextStyles.headingMedium.copyWith(color: Colors.white),
             ),
           ),

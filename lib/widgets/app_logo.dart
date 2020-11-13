@@ -4,7 +4,7 @@ import 'package:fall_detector/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../details_screen.dart';
+import '../screens/details_screen.dart';
 
 class AppLogo extends StatelessWidget {
   @override

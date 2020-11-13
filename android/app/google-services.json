@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "458069299243",
+    "firebase_url": "https://falldetector-7d502.firebaseio.com",
+    "project_id": "falldetector-7d502",
+    "storage_bucket": "falldetector-7d502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458069299243:android:945c99f39102f84e735a6e",
+        "android_client_info": {
+          "package_name": "com.zielinska.fall_detector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458069299243-kil2lhvu7q9tb6kh3ufg0munrbrfhme1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8DCscgTBLeOW0w08eD5XF0zPZxn53OY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458069299243-kil2lhvu7q9tb6kh3ufg0munrbrfhme1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

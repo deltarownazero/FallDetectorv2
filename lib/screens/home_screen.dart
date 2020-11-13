@@ -8,11 +8,11 @@ import 'package:fall_detector/providers/label_provider.dart';
 import 'package:fall_detector/utils/app_colors.dart';
 import 'package:fall_detector/widgets/acc_details.dart';
 import 'package:fall_detector/widgets/app_logo.dart';
-import 'package:fall_detector/settings_screen.dart';
+import 'package:fall_detector/screens/settings_screen.dart';
 import 'package:fall_detector/widgets/primary_button.dart';
 import 'package:fall_detector/widgets/time_widget.dart';
-import 'utils/constants.dart';
-import 'utils/text_styles.dart';
+import '../utils/constants.dart';
+import '../utils/text_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -103,8 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 TimeWidget(),
                 PrimaryButton(
-                  onPressed: null,
-                  toast: AppConstants.fallReported,
+                  onPressed: () {
+                    Scaffold.of(context)
+                        .showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
+                  },
+                  text: AppConstants.reportFall,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 8),
