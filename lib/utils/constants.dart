@@ -40,4 +40,8 @@ class AppConstants {
 
   static const distanceVerificationTime = 5;
   static const accVerificationTime = 3;
+
+  static const login = 'Login';
+  static const signIn = 'Sign in';
+  static const password = 'Password';
 }
