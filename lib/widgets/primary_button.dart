@@ -1,6 +1,5 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fall_detector/utils/app_colors.dart';
-import 'package:fall_detector/utils/constants.dart';
 import 'package:fall_detector/utils/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

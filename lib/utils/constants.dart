@@ -44,4 +44,11 @@ class AppConstants {
   static const login = 'Login';
   static const signIn = 'Sign in';
   static const password = 'Password';
+  static const emptyEmail = 'Email cannot be empty';
+  static const emptyPassword = 'Password cannot be empty';
+  static const invalidEmailMsg = 'Please enter a valid email address';
+  static const welcome = 'Welcome!';
+  static const pleaseSignIn = 'Please sign in to continue';
+  static const firstTime = 'If this is your first time, registration will be automatic';
+  static const passwordToShort = 'Password should be at least 6 characters';
 }

@@ -5,6 +5,13 @@ import 'app_colors.dart';
 
 class TextStyles {
   TextStyles._();
+  static const heading3SmallLight = TextStyle(
+    fontFamily: 'Avenir-Medium',
+    color: AppColors.greyishBrown,
+    fontSize: 36,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0,
+  );
 
   static const headingMedium = TextStyle(
       color: AppColors.greyishBrown,
