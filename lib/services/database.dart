@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
-  final String gmail;
-  DatabaseService(this.gmail);
+  final String mail;
+  DatabaseService(this.mail);
 
   final CollectionReference accCollection = FirebaseFirestore.instance.collection('acc');
 
-  Future updateUserData(String label, int speed, int x, int y, int z, int sum) async {
+  Future updateUserStats(String label, int speed, double x, double y, double z, double sum) async {
+    var now = new DateTime.now();
     return await accCollection
-        .doc(gmail)
-        .set({'label': label, 'sum': sum, 'x': x, 'y': y, 'z': z, 'speed': speed});
+        .doc('$mail/$label/$now')
+        .set({'sum': sum, 'x': x, 'y': y, 'z': z, 'speed': speed});
   }
 }

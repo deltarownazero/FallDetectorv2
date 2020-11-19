@@ -51,4 +51,7 @@ class AppConstants {
   static const pleaseSignIn = 'Please sign in to continue';
   static const firstTime = 'If this is your first time, registration will be automatic';
   static const passwordToShort = 'Password should be at least 6 characters';
+
+  static const play = "Play";
+  static const pause = "Pause";
 }

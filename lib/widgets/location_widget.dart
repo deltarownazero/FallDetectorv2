@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:fall_detector/providers/stats_provider.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 import 'gps_details.dart';
 
@@ -92,6 +94,7 @@ class _LocationWidgetState extends State<LocationWidget> {
       setState(() {
         _speed = _distanceInMeters / AppConstants.distanceVerificationTime;
       });
+      context.read<StatsProvider>().setActualSpeed(_speed);
     }
   }
 }

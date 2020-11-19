@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:fall_detector/providers/stats_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:fall_detector/utils/app_colors.dart';
 import 'package:fall_detector/utils/constants.dart';
@@ -23,18 +25,21 @@ class _TimeWidgetState extends State<TimeWidget> {
         _counter++;
       });
     });
+    context.read<StatsProvider>().setActualStatus(AppConstants.play);
   }
 
   void _pauseTimer() {
     if (_timer.isActive) {
       _timer.cancel();
     }
+    context.read<StatsProvider>().setActualStatus(AppConstants.pause);
   }
 
   void _stopTimer() {
     setState(() {
       _counter = 0;
     });
+    context.read<StatsProvider>().setActualStatus(AppConstants.pause);
     if (_timer.isActive) {
       _timer.cancel();
     }

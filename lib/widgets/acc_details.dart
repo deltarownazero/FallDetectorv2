@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'package:fall_detector/models/app_user.dart';
+import 'package:fall_detector/providers/label_provider.dart';
+import 'package:fall_detector/providers/stats_provider.dart';
+import 'package:fall_detector/services/database.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:sensors/sensors.dart';
 
 import 'package:fall_detector/utils/text_styles.dart';
@@ -70,6 +75,7 @@ class _AccDetailsState extends State<AccDetails> {
       if (_counter > 0) {
         _counter--;
       } else {
+        _sendDataToFirebase(_sumX, _sumY, _sumZ);
         setState(() {
           _sumX = 0;
           _sumY = 0;
@@ -78,5 +84,15 @@ class _AccDetailsState extends State<AccDetails> {
         _counter = AppConstants.accVerificationTime;
       }
     });
+  }
+
+  void _sendDataToFirebase(sumX, sumY, sumZ) async {
+    bool sendData = context.read<StatsProvider>().actualStatus == AppConstants.play;
+    if (sendData) {
+      var label = context.read<LabelProvider>().actualLabel;
+      final user = Provider.of<AppUser>(context, listen: false);
+      var email = user.email;
+      await DatabaseService(email).updateUserStats(label, 0, sumX, sumY, sumZ, sumX + sumY + sumZ);
+    }
   }
 }
