@@ -121,8 +121,6 @@ class _SignInState extends State<SignIn> {
                             onPressed: () async {
                               dynamic result = await _auth.registerWithEmailAndPassword(
                                   _provider.email, _provider.password);
-                              print('after');
-                              print(result);
                               if (result != null) {
                                 Navigator.pushReplacement(
                                   context,

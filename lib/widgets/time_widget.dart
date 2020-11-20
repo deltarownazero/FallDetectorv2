@@ -19,10 +19,13 @@ class _TimeWidgetState extends State<TimeWidget> {
   int _counter = 0;
   Timer _timer;
 
+  bool get stepIncrease => _counter % AppConstants.accVerificationTime == 0;
+
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         _counter++;
+        if (stepIncrease) context.read<StatsProvider>().stepIncrease();
       });
     });
     context.read<StatsProvider>().setActualStatus(AppConstants.play);
@@ -36,6 +39,7 @@ class _TimeWidgetState extends State<TimeWidget> {
   }
 
   void _stopTimer() {
+    context.read<StatsProvider>().stepReset();
     setState(() {
       _counter = 0;
     });

@@ -20,6 +20,7 @@ class _AccDetailsState extends State<AccDetails> {
   List<double> _gyroscopeValues;
   List<StreamSubscription<dynamic>> _streamSubscriptions = <StreamSubscription<dynamic>>[];
   int _counter = AppConstants.accVerificationTime;
+
   double _sumX = 0;
   double _sumY = 0;
   double _sumZ = 0;
@@ -88,11 +89,13 @@ class _AccDetailsState extends State<AccDetails> {
 
   void _sendDataToFirebase(sumX, sumY, sumZ) async {
     bool sendData = context.read<StatsProvider>().actualStatus == AppConstants.play;
+    int step = context.read<StatsProvider>().step;
     if (sendData) {
       var label = context.read<LabelProvider>().actualLabel;
       final user = Provider.of<AppUser>(context, listen: false);
       var email = user.email;
-      await DatabaseService(email).updateUserStats(label, 0, sumX, sumY, sumZ, sumX + sumY + sumZ);
+      await DatabaseService(mail: email)
+          .updateUserStats(label, 0, sumX, sumY, sumZ, sumX + sumY + sumZ, step);
     }
   }
 }
