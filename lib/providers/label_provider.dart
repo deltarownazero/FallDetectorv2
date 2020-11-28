@@ -24,6 +24,7 @@ class LabelProvider extends ChangeNotifier {
   }
 
   List<String> getChartLabelsFromHive(Box<String> accBox) {
+    chartLabels = [];
     accBox.keys.forEach((label) {
       if (accBox.get(label) == AppConstants.labelActive) chartLabels.add(label);
     });

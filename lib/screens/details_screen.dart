@@ -49,9 +49,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: ChartWidget(
-                    data: getData(label),
                     labelName: label,
-                    fallData: getData(AppConstants.fallsLabel),
                     accBox: accBox,
                   ),
                 )
@@ -107,35 +105,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
       ),
     );
-  }
-
-  List<DataPoint> getData(String labelName) {
-    final user = Provider.of<AppUser>(context, listen: false);
-    var email = user.email;
-    DatabaseService(mail: email).getData();
-    if (labelName == AppConstants.fallsLabel) {
-      return [
-        DataPoint<double>(value: 10, xAxis: 0),
-        DataPoint<double>(value: 130, xAxis: 5),
-        DataPoint<double>(value: 50, xAxis: 10),
-        DataPoint<double>(value: 150, xAxis: 15),
-        DataPoint<double>(value: 75, xAxis: 20),
-        DataPoint<double>(value: 0, xAxis: 25),
-        DataPoint<double>(value: 5, xAxis: 30),
-        DataPoint<double>(value: 45, xAxis: 35),
-      ];
-    } else {
-      return [
-        DataPoint<double>(value: 10, xAxis: 0),
-        DataPoint<double>(value: 0, xAxis: 5),
-        DataPoint<double>(value: 500, xAxis: 10),
-        DataPoint<double>(value: 50, xAxis: 15),
-        DataPoint<double>(value: 78, xAxis: 20),
-        DataPoint<double>(value: 20, xAxis: 25),
-        DataPoint<double>(value: 50, xAxis: 30),
-        DataPoint<double>(value: 45, xAxis: 35),
-      ];
-    }
   }
 
   List<DropdownMenuItem<String>> getDropDownItemList() {

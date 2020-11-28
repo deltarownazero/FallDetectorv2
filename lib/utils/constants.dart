@@ -10,7 +10,7 @@ class AppConstants {
   static const time = 'Time:';
   static const settings = 'Settings';
   static const labelName = 'Label name:';
-  static const labels = 'Labels:';
+  static const label = 'Label:';
   static const details = 'Details';
   static const addChart = 'Add chart';
   static const pleaseChooseLabel = 'Please choose label to compare';
@@ -57,4 +57,5 @@ class AppConstants {
 
   static const labelActive = 'active';
   static const labelInactive = 'inactive';
+  static const firebaseStatsLimit = 20;
 }
