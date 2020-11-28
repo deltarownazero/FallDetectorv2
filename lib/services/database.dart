@@ -15,7 +15,7 @@ class DatabaseService {
         .set({'sum': sum, 'x': x, 'y': y, 'z': z, 'speed': speed, 'step': step});
   }
 
-  List<StatsEntity> _statsListFromSnapshot(QuerySnapshot snapshot) {
+/*  List<StatsEntity> _statsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return StatsEntity(
         label: doc.data()['label'] ?? '',
@@ -31,5 +31,27 @@ class DatabaseService {
 
   Stream<List<StatsEntity>> get stats {
     return accCollection.snapshots().map(_statsListFromSnapshot);
+  }*/
+
+  Future getData() async {
+    print('IN FUNCTION');
+    QuerySnapshot querySnapshot = await accCollection.get();
+    print('docs: ');
+    print(querySnapshot.docs);
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      print('IN FOR');
+      var a = querySnapshot.docs[i];
+      print(a.id);
+    }
   }
+
+/*    await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
+      print("DONE");
+      snapshot.data().forEach((key, value) {
+        print('$key: $value');
+      });
+
+      return snapshot.data;
+    });
+  }*/
 }

@@ -1,9 +1,12 @@
 import 'package:bezier_chart/bezier_chart.dart';
-import 'package:fall_detector/providers/label_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import 'package:fall_detector/models/app_user.dart';
+import 'package:fall_detector/providers/label_provider.dart';
+import 'package:fall_detector/services/database.dart';
 import 'package:fall_detector/utils/app_colors.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:fall_detector/widgets/chart_widget.dart';
@@ -16,7 +19,14 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   List<String> labels = new List();
   List<String> actualLabels;
+  Box<String> accBox;
   String dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    accBox = Hive.box<String>('acc');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +109,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   List<DataPoint> getData(String labelName) {
+    final user = Provider.of<AppUser>(context, listen: false);
+    var email = user.email;
+    DatabaseService(mail: email).getData();
     if (labelName == AppConstants.fallsLabel) {
       return [
         DataPoint<double>(value: 10, xAxis: 0),
