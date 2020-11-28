@@ -52,6 +52,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     data: getData(label),
                     labelName: label,
                     fallData: getData(AppConstants.fallsLabel),
+                    accBox: accBox,
                   ),
                 )
             ],
@@ -91,7 +92,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           FlatButton(
                               onPressed: () {
                                 Navigator.pop(context);
-                                context.read<LabelProvider>().addLabelToChartList(dropdownValue);
+                                context.read<LabelProvider>().addLabelToChartList(dropdownValue, accBox);
                               },
                               child: Text(AppConstants.save)),
                         ],
@@ -151,15 +152,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   void getLabels() {
-    actualLabels = context.watch<LabelProvider>().chartLabels;
+    actualLabels = context.watch<LabelProvider>().getChartLabelsFromHive(accBox);
     labels = [];
     for (String label in AppConstants.labelsList) labels.add(label);
     for (String label in actualLabels) {
       labels.remove(label);
     }
     labels.remove(AppConstants.fallsLabel);
-    print(actualLabels);
-    print(labels);
     dropdownValue = labels.first;
   }
 }

@@ -54,4 +54,7 @@ class AppConstants {
 
   static const play = "Play";
   static const pause = "Pause";
+
+  static const labelActive = 'active';
+  static const labelInactive = 'inactive';
 }
