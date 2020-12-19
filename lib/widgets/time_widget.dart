@@ -43,7 +43,7 @@ class _TimeWidgetState extends State<TimeWidget> {
     setState(() {
       _counter = 0;
     });
-    context.read<StatsProvider>().setActualStatus(AppConstants.pause);
+    context.read<StatsProvider>().setActualStatus(AppConstants.stop);
     if (_timer.isActive) {
       _timer.cancel();
     }
@@ -57,14 +57,14 @@ class _TimeWidgetState extends State<TimeWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 8, bottom: 20),
+              padding: const EdgeInsets.only(right: 8, bottom: 10),
               child: Text(
                 AppConstants.time,
                 style: TextStyles.headingMedium,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Text(
                 '$_counter.00 s',
                 style: TextStyles.headingMedium.copyWith(color: AppColors.primaryColor),
@@ -73,7 +73,7 @@ class _TimeWidgetState extends State<TimeWidget> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

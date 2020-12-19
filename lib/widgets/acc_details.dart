@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:fall_detector/models/app_user.dart';
+import 'package:fall_detector/models/stats_entity.dart';
 import 'package:fall_detector/providers/label_provider.dart';
 import 'package:fall_detector/providers/stats_provider.dart';
 import 'package:fall_detector/services/database.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:sensors/sensors.dart';
 
@@ -24,6 +27,7 @@ class _AccDetailsState extends State<AccDetails> {
   double _sumX = 0;
   double _sumY = 0;
   double _sumZ = 0;
+  Box<String> accBox;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,7 @@ class _AccDetailsState extends State<AccDetails> {
   @override
   void initState() {
     super.initState();
+    accBox = Hive.box<String>('acc_details');
 
     _streamSubscriptions.add(gyroscopeEvents.listen((GyroscopeEvent event) {
       setState(() {
@@ -76,7 +81,8 @@ class _AccDetailsState extends State<AccDetails> {
       if (_counter > 0) {
         _counter--;
       } else {
-        _sendDataToFirebase(_sumX, _sumY, _sumZ);
+        saveData(_sumX, _sumY, _sumZ);
+        sendDataToFirebase();
         setState(() {
           _sumX = 0;
           _sumY = 0;
@@ -87,15 +93,49 @@ class _AccDetailsState extends State<AccDetails> {
     });
   }
 
-  void _sendDataToFirebase(sumX, sumY, sumZ) async {
-    bool sendData = context.read<StatsProvider>().actualStatus == AppConstants.play;
+  void saveData(sumX, sumY, sumZ) async {
+    bool saveData = context.read<StatsProvider>().actualStatus == AppConstants.play;
     int step = context.read<StatsProvider>().step;
-    if (sendData) {
+    if (saveData) {
+      var speed = context.read<StatsProvider>().actualSpeed;
       var label = context.read<LabelProvider>().actualLabel;
+      var now = DateTime.now();
+      StatsEntity statsEntity = StatsEntity(
+          x: sumX,
+          y: sumY,
+          z: sumZ,
+          sum: sumX + sumY + sumZ,
+          label: label,
+          step: step,
+          send: false,
+          speed: speed);
+      await accBox.put(now.toString(), jsonEncode(statsEntity.toJson()));
+    }
+  }
+
+  void sendDataToFirebase() async {
+    bool sendData = context.read<StatsProvider>().needToSendData == true;
+    if (sendData) {
       final user = Provider.of<AppUser>(context, listen: false);
       var email = user.email;
-      await DatabaseService(mail: email)
-          .updateUserStats(label, 0, sumX, sumY, sumZ, sumX + sumY + sumZ, step);
+
+      var keys = accBox.keys;
+      keys.forEach((key) async {
+        print(accBox.get(key));
+        var statsEntity = StatsEntity.fromJson(jsonDecode(accBox.get(key)));
+        print(statsEntity);
+        if (statsEntity.send == false) {
+          await DatabaseService(mail: email).updateUserStats(
+              statsEntity.label,
+              statsEntity.speed,
+              statsEntity.x,
+              statsEntity.y,
+              statsEntity.z,
+              statsEntity.x + statsEntity.y + statsEntity.z,
+              statsEntity.step);
+        }
+      });
+      context.read<StatsProvider>().needToSendData = false;
     }
   }
 }

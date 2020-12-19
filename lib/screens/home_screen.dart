@@ -1,6 +1,7 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fall_detector/providers/stats_provider.dart';
 import 'package:fall_detector/widgets/location_widget.dart';
+import 'package:fall_detector/widgets/secondary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: AppConstants.reportFall,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 8),
+                    padding: const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 4),
                     child: AccDetails(),
                   ),
                 ],

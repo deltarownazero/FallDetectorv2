@@ -9,7 +9,7 @@ class DatabaseService {
   final CollectionReference accCollection = FirebaseFirestore.instance.collection('acc');
 
   Future updateUserStats(
-      String label, int speed, double x, double y, double z, double sum, int step) async {
+      String label, double speed, double x, double y, double z, double sum, int step) async {
     var now = new DateTime.now();
     return await accCollection.doc('$now').set({
       'sum': sum,

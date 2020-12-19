@@ -25,7 +25,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    accBox = Hive.box<String>('acc');
+    accBox = Hive.box<String>('acc_labels');
   }
 
   @override

@@ -4,14 +4,15 @@ part 'stats_entity.g.dart';
 @JsonSerializable()
 class StatsEntity {
   String label;
-  int step;
   double x;
   double y;
   double z;
   double sum;
+  int step;
   double speed;
+  bool send = true;
 
-  StatsEntity({this.label, this.step, this.x, this.y, this.z, this.sum, this.speed});
+  StatsEntity({this.label, this.x, this.y, this.z, this.sum, this.step, this.speed, this.send});
 
   factory StatsEntity.fromJson(Map<String, dynamic> json) => _$StatsEntityFromJson(json);
   Map<String, dynamic> toJson() => _$StatsEntityToJson(this);

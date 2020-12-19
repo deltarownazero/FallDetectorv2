@@ -15,7 +15,9 @@ class AppConstants {
   static const addChart = 'Add chart';
   static const pleaseChooseLabel = 'Please choose label to compare';
   static const reportFall = 'Report fall';
+  static const sendData = 'Send data';
   static const fallReported = 'Fall reported!';
+  static const dataSent = 'Data sent to firebase!';
 
   static const walkLabel = 'Walk';
   static const trainLabel = 'Train';
@@ -54,6 +56,7 @@ class AppConstants {
 
   static const play = "Play";
   static const pause = "Pause";
+  static const stop = "Stop";
 
   static const labelActive = 'active';
   static const labelInactive = 'inactive';

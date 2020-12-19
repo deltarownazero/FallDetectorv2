@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fall_detector/models/stats_entity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -17,7 +18,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory document = await getApplicationDocumentsDirectory();
   Hive.init(document.path);
-  await Hive.openBox<String>('acc');
+  await Hive.openBox<String>('acc_labels');
+  await Hive.openBox<String>('acc_details');
   await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(

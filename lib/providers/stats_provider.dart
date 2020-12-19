@@ -5,10 +5,14 @@ class StatsProvider extends ChangeNotifier {
   String actualStatus = AppConstants.pause;
   double actualSpeed = 0;
   int step = 0;
+  bool needToSendData = false;
 
   setActualStatus(String value) {
     actualStatus = value;
     notifyListeners();
+    if (value == AppConstants.stop) {
+      needToSendData = true;
+    }
   }
 
   setActualSpeed(double value) {
