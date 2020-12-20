@@ -1,12 +1,9 @@
-import 'package:bezier_chart/bezier_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
-import 'package:fall_detector/models/app_user.dart';
 import 'package:fall_detector/providers/label_provider.dart';
-import 'package:fall_detector/services/firebase.dart';
 import 'package:fall_detector/utils/app_colors.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:fall_detector/widgets/chart_widget.dart';

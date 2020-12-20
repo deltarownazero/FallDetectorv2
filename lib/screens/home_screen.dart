@@ -2,7 +2,6 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fall_detector/providers/stats_provider.dart';
 import 'package:fall_detector/services/local_database.dart';
 import 'package:fall_detector/widgets/location_widget.dart';
-import 'package:fall_detector/widgets/secondary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

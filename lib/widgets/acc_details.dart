@@ -1,18 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:fall_detector/models/app_user.dart';
-import 'package:fall_detector/models/stats_entity.dart';
-import 'package:fall_detector/providers/label_provider.dart';
-import 'package:fall_detector/providers/stats_provider.dart';
-import 'package:fall_detector/services/firebase.dart';
-import 'package:fall_detector/services/local_database.dart';
-import 'package:fall_detector/utils/constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 import 'package:sensors/sensors.dart';
 
+import 'package:fall_detector/services/local_database.dart';
+import 'package:fall_detector/utils/constants.dart';
 import 'package:fall_detector/utils/text_styles.dart';
 
 class AccDetails extends StatefulWidget {
