@@ -4,7 +4,8 @@ import 'package:fall_detector/models/app_user.dart';
 import 'package:fall_detector/models/stats_entity.dart';
 import 'package:fall_detector/providers/label_provider.dart';
 import 'package:fall_detector/providers/stats_provider.dart';
-import 'package:fall_detector/services/database.dart';
+import 'package:fall_detector/services/firebase.dart';
+import 'package:fall_detector/services/local_database.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,8 +82,8 @@ class _AccDetailsState extends State<AccDetails> {
       if (_counter > 0) {
         _counter--;
       } else {
-        saveData(_sumX, _sumY, _sumZ);
-        sendDataToFirebase();
+        LocalDatabase().saveData(_sumX, _sumY, _sumZ, context);
+        LocalDatabase().sendDataToFirebase(context);
         setState(() {
           _sumX = 0;
           _sumY = 0;
@@ -91,51 +92,5 @@ class _AccDetailsState extends State<AccDetails> {
         _counter = AppConstants.accVerificationTime;
       }
     });
-  }
-
-  void saveData(sumX, sumY, sumZ) async {
-    bool saveData = context.read<StatsProvider>().actualStatus == AppConstants.play;
-    int step = context.read<StatsProvider>().step;
-    if (saveData) {
-      var speed = context.read<StatsProvider>().actualSpeed;
-      var label = context.read<LabelProvider>().actualLabel;
-      var now = DateTime.now();
-      StatsEntity statsEntity = StatsEntity(
-          x: sumX,
-          y: sumY,
-          z: sumZ,
-          sum: sumX + sumY + sumZ,
-          label: label,
-          step: step,
-          send: false,
-          speed: speed);
-      await accBox.put(now.toString(), jsonEncode(statsEntity.toJson()));
-    }
-  }
-
-  void sendDataToFirebase() async {
-    bool sendData = context.read<StatsProvider>().needToSendData == true;
-    if (sendData) {
-      final user = Provider.of<AppUser>(context, listen: false);
-      var email = user.email;
-
-      var keys = accBox.keys;
-      keys.forEach((key) async {
-        print(accBox.get(key));
-        var statsEntity = StatsEntity.fromJson(jsonDecode(accBox.get(key)));
-        print(statsEntity);
-        if (statsEntity.send == false) {
-          await DatabaseService(mail: email).updateUserStats(
-              statsEntity.label,
-              statsEntity.speed,
-              statsEntity.x,
-              statsEntity.y,
-              statsEntity.z,
-              statsEntity.x + statsEntity.y + statsEntity.z,
-              statsEntity.step);
-        }
-      });
-      context.read<StatsProvider>().needToSendData = false;
-    }
   }
 }

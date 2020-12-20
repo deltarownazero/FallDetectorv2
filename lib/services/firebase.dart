@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fall_detector/models/stats_entity.dart';
 import 'package:fall_detector/utils/constants.dart';
 
-class DatabaseService {
+class FirebaseService {
   final String mail;
-  DatabaseService({this.mail});
+  FirebaseService({this.mail});
 
   final CollectionReference accCollection = FirebaseFirestore.instance.collection('acc');
 

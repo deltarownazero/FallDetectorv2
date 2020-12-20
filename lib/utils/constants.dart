@@ -18,6 +18,7 @@ class AppConstants {
   static const sendData = 'Send data';
   static const fallReported = 'Fall reported!';
   static const dataSent = 'Data sent to firebase!';
+  static const notEnoughData = 'Not enough data to report fall';
 
   static const walkLabel = 'Walk';
   static const trainLabel = 'Train';
@@ -60,5 +61,6 @@ class AppConstants {
 
   static const labelActive = 'active';
   static const labelInactive = 'inactive';
-  static const firebaseStatsLimit = 20;
+  static const firebaseStatsLimit = 30;
+  static const fallStepLimit = 7;
 }

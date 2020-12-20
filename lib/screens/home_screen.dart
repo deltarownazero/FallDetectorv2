@@ -1,5 +1,6 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fall_detector/providers/stats_provider.dart';
+import 'package:fall_detector/services/local_database.dart';
 import 'package:fall_detector/widgets/location_widget.dart';
 import 'package:fall_detector/widgets/secondary_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -108,8 +109,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   TimeWidget(),
                   PrimaryButton(
                     onPressed: () {
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Text('Warning'),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Text('Are you sure you want to report a fall?'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Report'),
+                                onPressed: () {
+                                  LocalDatabase().setFallLabels(context);
+                                  Navigator.of(ctx).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     text: AppConstants.reportFall,
                   ),

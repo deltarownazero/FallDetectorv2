@@ -2,7 +2,7 @@ import 'package:bezier_chart/bezier_chart.dart';
 import 'package:fall_detector/models/app_user.dart';
 import 'package:fall_detector/models/stats_entity.dart';
 import 'package:fall_detector/providers/label_provider.dart';
-import 'package:fall_detector/services/database.dart';
+import 'package:fall_detector/services/firebase.dart';
 import 'package:fall_detector/utils/app_colors.dart';
 import 'package:fall_detector/utils/constants.dart';
 import 'package:fall_detector/utils/text_styles.dart';
@@ -79,13 +79,16 @@ class ChartWidget extends StatelessWidget {
             ),
           ),
           FutureBuilder<List<StatsEntity>>(
-              future: DatabaseService(mail: email).getStatsFromFirebase(labelName),
+              future: FirebaseService(mail: email).getStatsFromFirebase(labelName),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(child: Container(height: 200, child: Text("Something went wrong")));
                 }
                 if (snapshot.connectionState == ConnectionState.done) {
                   var step = 1.0;
+                  if (snapshot.data.isEmpty) {
+                    return Center(child: Container(height: 200, child: Text("No data")));
+                  }
                   snapshot.data.forEach((stats) {
                     dataX.add(DataPoint<double>(value: stats.x, xAxis: step));
                     dataY.add(DataPoint<double>(value: stats.y, xAxis: step));
@@ -123,7 +126,7 @@ class ChartWidget extends StatelessWidget {
                                 BezierLine(lineColor: Colors.greenAccent, data: dataY),
                                 BezierLine(lineColor: Colors.blueAccent, data: dataZ),
                               ],
-                              config: getChartConfig(10, context),
+                              config: getChartConfig(50, context),
                             ),
                           ),
                         ),
@@ -148,7 +151,7 @@ class ChartWidget extends StatelessWidget {
                               series: [
                                 BezierLine(lineColor: AppColors.primaryColor, data: dataSum),
                               ],
-                              config: getChartConfig(30, context),
+                              config: getChartConfig(150, context),
                             ),
                           ),
                         ),
@@ -202,7 +205,7 @@ class ChartWidget extends StatelessWidget {
       verticalIndicatorColor: Colors.black26,
       showVerticalIndicator: true,
       backgroundColor: Colors.white,
-      contentWidth: MediaQuery.of(context).size.width * 0.6,
+      contentWidth: MediaQuery.of(context).size.width * 2,
       snap: false,
     );
   }
