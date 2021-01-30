@@ -23,14 +23,16 @@ class LocalDatabase {
       var label = context.read<LabelProvider>().actualLabel;
       var now = DateTime.now();
       StatsEntity statsEntity = StatsEntity(
-          x: sumX,
-          y: sumY,
-          z: sumZ,
-          sum: sumX + sumY + sumZ,
-          label: label,
-          step: step,
-          send: false,
-          speed: speed);
+        x: sumX,
+        y: sumY,
+        z: sumZ,
+        sum: sumX + sumY + sumZ,
+        label: label,
+        step: step,
+        send: false,
+        speed: speed,
+        isFall: false,
+      );
       await accBox.put(now.toString(), jsonEncode(statsEntity.toJson()));
     }
   }
@@ -54,7 +56,8 @@ class LocalDatabase {
               statsEntity.y,
               statsEntity.z,
               statsEntity.x + statsEntity.y + statsEntity.z,
-              statsEntity.step);
+              statsEntity.step,
+              statsEntity.isFall);
           statsEntity.send = true;
           await accBox.put(key, jsonEncode(statsEntity.toJson()));
         }
@@ -65,20 +68,23 @@ class LocalDatabase {
   }
 
   Future<void> setFallLabels(BuildContext context) async {
+    print('wchodze');
     var keys = accBox.keys;
     var statsEntity = StatsEntity.fromJson(jsonDecode(accBox.get(keys.last)));
     if (statsEntity.step > AppConstants.fallStepLimit) {
       var lastKeys = [];
       for (int i = 0; i < AppConstants.fallStepLimit; i++) {
-        var currentKey = keys.elementAt(AppConstants.fallStepLimit - i);
+        var currentKey = keys.elementAt(keys.length - i - 1);
         lastKeys.add(currentKey);
         var statsEntity = StatsEntity.fromJson(jsonDecode(accBox.get(currentKey)));
-        statsEntity.label = AppConstants.fallsLabel;
+        statsEntity.isFall = true;
         await accBox.put(currentKey, jsonEncode(statsEntity.toJson()));
+        print('ustawiam dla $currentKey');
       }
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
+      //Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
     } else {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.notEnoughData)));
+      print("ZA MAŁO DANYCH");
+      //Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.notEnoughData)));
     }
   }
 }

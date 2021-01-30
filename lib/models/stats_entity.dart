@@ -11,8 +11,10 @@ class StatsEntity {
   int step;
   double speed;
   bool send = true;
+  bool isFall;
 
-  StatsEntity({this.label, this.x, this.y, this.z, this.sum, this.step, this.speed, this.send});
+  StatsEntity(
+      {this.label, this.x, this.y, this.z, this.sum, this.step, this.speed, this.send, this.isFall});
 
   factory StatsEntity.fromJson(Map<String, dynamic> json) => _$StatsEntityFromJson(json);
   Map<String, dynamic> toJson() => _$StatsEntityToJson(this);

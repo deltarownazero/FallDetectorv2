@@ -130,8 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               TextButton(
                                 child: Text('Report'),
                                 onPressed: () {
-                                  LocalDatabase().setFallLabels(context);
                                   Navigator.of(ctx).pop();
+                                  LocalDatabase().setFallLabels(context);
                                 },
                               ),
                             ],

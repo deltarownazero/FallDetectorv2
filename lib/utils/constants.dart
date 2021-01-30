@@ -35,7 +35,6 @@ class AppConstants {
     AppConstants.testLabel,
     AppConstants.walkLabel,
     AppConstants.trainLabel,
-    AppConstants.fallsLabel,
     AppConstants.casualDayLabel,
     AppConstants.joggingLabel,
     AppConstants.sittingOnChairLabel,

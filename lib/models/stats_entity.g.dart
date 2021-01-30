@@ -16,6 +16,7 @@ StatsEntity _$StatsEntityFromJson(Map<String, dynamic> json) {
     step: json['step'] as int,
     speed: (json['speed'] as num)?.toDouble(),
     send: json['send'] as bool,
+    isFall: json['isFall'] as bool,
   );
 }
 
@@ -29,4 +30,5 @@ Map<String, dynamic> _$StatsEntityToJson(StatsEntity instance) =>
       'step': instance.step,
       'speed': instance.speed,
       'send': instance.send,
+      'isFall': instance.isFall,
     };

@@ -8,8 +8,8 @@ class FirebaseService {
 
   final CollectionReference accCollection = FirebaseFirestore.instance.collection('acc');
 
-  Future updateUserStats(
-      String label, double speed, double x, double y, double z, double sum, int step) async {
+  Future updateUserStats(String label, double speed, double x, double y, double z, double sum, int step,
+      bool isFall) async {
     var now = new DateTime.now();
     return await accCollection.doc('$now').set({
       'sum': sum,
@@ -21,6 +21,7 @@ class FirebaseService {
       'label': label,
       'user': mail,
       'time': now.toString(),
+      'isFall': isFall
     });
   }
 
