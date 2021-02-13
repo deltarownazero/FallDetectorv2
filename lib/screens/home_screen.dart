@@ -5,6 +5,7 @@ import 'package:fall_detector/widgets/location_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:screen/screen.dart';
 
 import 'package:fall_detector/providers/label_provider.dart';
 import 'package:fall_detector/utils/app_colors.dart';
@@ -22,6 +23,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Screen.keepOn(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

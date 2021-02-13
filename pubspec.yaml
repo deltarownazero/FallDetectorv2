@@ -25,6 +25,7 @@ dependencies:
 
   path_provider: ^1.6.24
   provider: ^4.3.2+2
+  screen: ^0.0.5
   sensors: ^0.4.2+6
 
   cupertino_icons: ^1.0.0

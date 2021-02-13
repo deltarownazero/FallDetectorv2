@@ -57,7 +57,8 @@ class LocalDatabase {
               statsEntity.z,
               statsEntity.x + statsEntity.y + statsEntity.z,
               statsEntity.step,
-              statsEntity.isFall);
+              statsEntity.isFall,
+              key);
           statsEntity.send = true;
           await accBox.put(key, jsonEncode(statsEntity.toJson()));
         }
