@@ -38,126 +38,129 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: ChangeNotifierProvider<StatsProvider>(
-          create: (_) => StatsProvider(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
+      body: Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: ChangeNotifierProvider<StatsProvider>(
+            create: (_) => StatsProvider(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
                     ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: AppLogo(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20),
-                      child: Stack(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                AppConstants.actualLabel,
-                                style: TextStyles.headingMedium,
-                              ),
-                              Text(
-                                context.watch<LabelProvider>().actualLabel,
-                                style: TextStyles.headingMedium.copyWith(color: AppColors.primaryColor),
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            right: 16,
-                            child: BouncingWidget(
-                              duration: Duration(milliseconds: 100),
-                              scaleFactor: -1.5,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => SettingsScreen()),
-                                );
-                              },
-                              child: Icon(
-                                Icons.settings_rounded,
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                          )
-                        ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: AppLogo(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20),
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  AppConstants.actualLabel,
+                                  style: TextStyles.headingMedium,
+                                ),
+                                Text(
+                                  context.watch<LabelProvider>().actualLabel,
+                                  style:
+                                      TextStyles.headingMedium.copyWith(color: AppColors.primaryColor),
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              right: 16,
+                              child: BouncingWidget(
+                                duration: Duration(milliseconds: 100),
+                                scaleFactor: -1.5,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => SettingsScreen()),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.settings_rounded,
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      LocationWidget(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    TimeWidget(),
+                    PrimaryButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext ctx) {
+                            return AlertDialog(
+                              title: Text('Warning'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text('Are you sure you want to report a fall?'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('Report'),
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                    LocalDatabase().setFallLabels(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      text: AppConstants.reportFall,
                     ),
-                    LocationWidget(),
-                    SizedBox(
-                      height: 30,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 4),
+                      child: AccDetails(),
                     ),
                   ],
                 ),
-              ),
-              Column(
-                children: [
-                  TimeWidget(),
-                  PrimaryButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext ctx) {
-                          return AlertDialog(
-                            title: Text('Warning'),
-                            content: SingleChildScrollView(
-                              child: ListBody(
-                                children: <Widget>[
-                                  Text('Are you sure you want to report a fall?'),
-                                ],
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('Report'),
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                  LocalDatabase().setFallLabels(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: AppConstants.reportFall,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24, left: 20, right: 20, bottom: 4),
-                    child: AccDetails(),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

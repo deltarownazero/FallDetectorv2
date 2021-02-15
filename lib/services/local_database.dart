@@ -82,10 +82,10 @@ class LocalDatabase {
         await accBox.put(currentKey, jsonEncode(statsEntity.toJson()));
         print('ustawiam dla $currentKey');
       }
-      //Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.fallReported)));
     } else {
       print("ZA MAŁO DANYCH");
-      //Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.notEnoughData)));
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(AppConstants.notEnoughData)));
     }
   }
 }
