@@ -3,6 +3,7 @@
 This Flutter application allows a user to, after registration, collect accelerometer sensor values, which are using to create ML model which can detects the fall of the user.
 # Registration Screen
 <img width="309" alt="Zrzut ekranu 2021-03-25 o 20 51 37" src="https://user-images.githubusercontent.com/34981187/112534914-f5eff580-8dab-11eb-8d18-0092a1e3f7ba.png">
+
 # Home Screen
 <img width="242" alt="Zrzut ekranu 2021-03-25 o 20 32 56" src="https://user-images.githubusercontent.com/34981187/112532635-57fb2b80-8da9-11eb-893e-39d467fbee4e.png">
 
